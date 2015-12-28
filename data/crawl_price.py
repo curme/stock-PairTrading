@@ -23,7 +23,5 @@ def get_stock_list():
 if __name__ == "__main__":
 
     stocks = get_stock_list()
-    for stock in stocks[65:]:
-        #if stock == "2318.HK": continue # this stock cannot receive data, skip
-        print stock
+    for stock in stocks:
         price_crawl(stock)
