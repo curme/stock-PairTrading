@@ -6,9 +6,10 @@
 webpage "http://www.wikihow.com/Calculate-Stock-Correlation-Coefficient".
 '''
 
+import math
+
 APPLE_FILE = "../data/apple.csv"
 GOOGLE_FILE= "../data/google.csv"
-apple_data, google_data = [], []
 
 def open_file(filepath):
 
@@ -27,7 +28,7 @@ def cal_return(stock):
         tmp = [stock[i][0]]
         price_t = float(stock[i][1])
         price_l = float(stock[i-1][1])
-        return_t= (price_t-price_l) / price_l # daily return without annualize
+        return_t= math.log(price_t/price_l, math.e)
         tmp.append(return_t)
         returns.append(tmp)
 
@@ -35,16 +36,13 @@ def cal_return(stock):
 
 def check_timeorder(stock1, stock2):
 
-    flag = False
-
     # to check if two stocks have equivalent time stretch
-    if len(stock1) != len(stock2):
-        flag &= True
+    if len(stock1) != len(stock2): return False
 
     # to check if two stocks have same time order
+    flag = False
     for i in xrange(len(stock1)): 
         if stock1[i][0] != stock2[i][0]: flag &= True
-
     return False if flag else True
 
 def correlation_of_return(stock1, stock2):
@@ -74,6 +72,9 @@ def correlation_of_return(stock1, stock2):
     return correlation
 
 if __name__ == "__main__":
+
+    stocks = crawl_price.get_stock_list()
+    print stocks
 
     apple_price   = open_file(APPLE_FILE)
     google_price  = open_file(GOOGLE_FILE)
