@@ -62,8 +62,14 @@ if __name__ == "__main__":
 
     with file("./correlation_report.txt", "r") as f:
 
-        line = f.read().split('\n')[0].split(' ')
-        stock1, stock2 = line[0], line[2]
+        stock1, stock2 = "", ""
+        for line in f:
+            tokens = line.split(" ")
+            if float(tokens[-2]) < 0.9: 
+                stock1, stock2 = tokens[0], tokens[2]
+                break
+
+        print stock1, stock2
 
         # draw scatter
         draw_scatter(stock1, stock2)
