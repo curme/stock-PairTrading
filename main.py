@@ -1,10 +1,12 @@
+import pandas
 from utility import correlation
+from utility import plot
 from data.crawl_price import get_stock_list
 
 STOCK_LIST   = "./data/stock_list.txt"
 FILEPATH_RAW = "./data/%s.csv"
 
-if __name__ == "__main__":
+def generate_correlation_report():
 
     stocks = get_stock_list(STOCK_LIST)
     length = len(stocks)
@@ -30,3 +32,21 @@ if __name__ == "__main__":
             data_raw = "%s & %s correlation: %s \n"
             data = data_raw % tuple(cor_record)
             f.write(data)
+
+if __name__ == "__main__":
+
+    #generate_correlation_report()
+
+    with file("./correlation_report.txt", "r") as f:
+        
+        line = f.read().split('\n')[500].split(' ')
+        stock1, stock2 = line[0], line[2]
+        stock1_data = pandas.DataFrame.from_csv(FILEPATH_RAW % stock1)
+        stock2_data = pandas.DataFrame.from_csv(FILEPATH_RAW % stock2)
+
+        key = "Adj Close"
+        data = pandas.DataFrame(index=stock1_data.index)
+        data[stock1], data[stock2] = stock1_data[key], stock2_data[key]
+
+        # plot scatter plot
+        plot.plot_scatter_series(data, stock1, stock2)

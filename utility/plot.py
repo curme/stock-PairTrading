@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
-import pandas.io.data as web
+import pandas_datareader as web
 import pprint
 import statsmodels.tsa.stattools as ts
 
@@ -64,14 +64,10 @@ if __name__ == "__main__":
     #wll = web.DataReader("WLL", "yahoo", start, end)
     arex = pd.DataFrame.from_csv("./data/apple.csv")
     wll = pd.DataFrame.from_csv("./data/google.csv")
-    print wll.index
-    print arex.index
 
     df = pd.DataFrame(index=arex.index)
     df["AREX"] = arex["Adj Close"]
     df["WLL"] = wll["Adj Close"]
-
-    print df
 
     # Plot the two time series
     plot_price_series(df, "AREX", "WLL")
