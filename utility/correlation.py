@@ -17,9 +17,9 @@ def open_file(filepath):
     with file(filepath, "r") as f:
         for line in f:
             line_split = line.split(',')
-            data.append([line_split[i] for i in [0, 4]])
+            data.append([line_split[i] for i in [0, 6]])
 
-    return data[1:] # to kick out the file line "Data, Closing"
+    return data[1:] # to kick out the file line "Data, Close"
 
 def cal_return(stock):
 
