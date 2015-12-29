@@ -1,6 +1,7 @@
 import pandas
-from utility import correlation
 from utility import plot
+from utility import regression
+from utility import correlation
 from data.crawl_price import get_stock_list
 
 STOCK_LIST   = "./data/stock_list.txt"
@@ -33,20 +34,41 @@ def generate_correlation_report():
             data = data_raw % tuple(cor_record)
             f.write(data)
 
+def draw_scatter(stock1, stock2):
+
+    stock1_data = pandas.DataFrame.from_csv(FILEPATH_RAW % stock1)
+    stock2_data = pandas.DataFrame.from_csv(FILEPATH_RAW % stock2)
+
+    key = "Adj Close"
+    data = pandas.DataFrame(index=stock1_data.index)
+    data[stock1], data[stock2] = stock1_data[key], stock2_data[key]
+
+    # plot scatter plot
+    plot.plot_scatter_series(data, stock1, stock2)
+
+def get_lineal_regression(stock1, stock2):
+
+    stock1_price = correlation.open_file(FILEPATH_RAW % stock1)
+    stock2_price = correlation.open_file(FILEPATH_RAW % stock2)
+
+    if correlation.check_timeorder(stock1_price, stock2_price):
+        return regression.cal_lineal_regression(stock1_price, stock2_price)
+
+    return None, None
+
 if __name__ == "__main__":
 
     #generate_correlation_report()
 
     with file("./correlation_report.txt", "r") as f:
-        
-        line = f.read().split('\n')[500].split(' ')
+
+        line = f.read().split('\n')[0].split(' ')
         stock1, stock2 = line[0], line[2]
-        stock1_data = pandas.DataFrame.from_csv(FILEPATH_RAW % stock1)
-        stock2_data = pandas.DataFrame.from_csv(FILEPATH_RAW % stock2)
 
-        key = "Adj Close"
-        data = pandas.DataFrame(index=stock1_data.index)
-        data[stock1], data[stock2] = stock1_data[key], stock2_data[key]
+        # draw scatter
+        draw_scatter(stock1, stock2)
 
-        # plot scatter plot
-        plot.plot_scatter_series(data, stock1, stock2)
+        # calculate lineal regression equation
+        # ln(PriceY_t) = Gamma*ln(PriceX_t) + Mu)
+        gamma, mu = get_lineal_regression(stock1, stock2)
+        print gamma, mu

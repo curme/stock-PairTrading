@@ -8,7 +8,7 @@
 import math
 import correlation
 
-def get_lineal_regression(prices_x, prices_y):
+def cal_lineal_regression(prices_x, prices_y):
 
     # step 1: preparation
     ln_prices_x, ln_prices_y = [], []
@@ -44,5 +44,5 @@ if __name__ == "__main__":
     google_return= correlation.cal_return(google_price)
 
     if correlation.check_timeorder(apple_price, google_price):
-        gamma, mu = get_lineal_regression(apple_price, google_price)
+        gamma, mu = cal_lineal_regression(apple_price, google_price)
         print gamma, mu
