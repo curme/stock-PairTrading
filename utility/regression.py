@@ -12,8 +12,8 @@ def cal_lineal_regression(prices_x, prices_y):
 
     # step 1: preparation
     ln_prices_x, ln_prices_y = [], []
-    for item in prices_x: ln_prices_x.append(math.log(float(item[1]), math.e))
-    for item in prices_y: ln_prices_y.append(math.log(float(item[1]), math.e))
+    for item in prices_x[60:150]: ln_prices_x.append(math.log(float(item[1]), math.e))
+    for item in prices_y[60:150]: ln_prices_y.append(math.log(float(item[1]), math.e))
 
     length = len(ln_prices_x) # and ln_return_y must share same length
     mean_x, mean_y = 0.0, 0.0

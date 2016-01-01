@@ -56,6 +56,9 @@ def plot_residuals(df):
     plt.plot(df["res"])
     plt.show()
 
+def plot_price_diff(df):
+    return
+
 if __name__ == "__main__":
     start = datetime.datetime(2012, 1, 1)
     end = datetime.datetime(2013, 1, 1)

@@ -11,7 +11,7 @@ def price_crawl(code):
     try:
         response = requests.get(target_link)
         with file("%s.csv" % code, "wb") as f:
-        f.write(response.content)
+            f.write(response.content)
         print code, ".csv lines: ", len(response.content.split("\n"))
     except:
         print code
