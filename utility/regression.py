@@ -31,6 +31,9 @@ def cal_lineal_regression(prices_x, prices_y):
     # step 3: calculate mu, mu = mean_y - gamma * mean_x
     mu = mean_y - gamma * mean_x
 
+    for i in xrange(length):
+        print ln_prices_y[i] - (gamma*ln_prices_x[i] + mu)
+
     return gamma, mu
 
 if __name__ == "__main__":

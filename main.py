@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
     #generate_correlation_report()
 
-    with file("./correlation_report.txt", "r") as f:
+    with file("correlation_report.txt", "r") as f:
 
         stock1, stock2 = "", ""
         for line in f:
