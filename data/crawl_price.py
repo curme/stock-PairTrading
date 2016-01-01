@@ -8,13 +8,13 @@ STOCK_LIST = "stock_list.txt"
 def price_crawl(code):
 
     target_link =  RAW_LINK % code
-    try:    response = requests.get(target_link)
-    except: 
-        print code
-        return
-    with file("%s.csv" % code, "wb") as f:
+    try:
+        response = requests.get(target_link)
+        with file("%s.csv" % code, "wb") as f:
         f.write(response.content)
         print code, ".csv lines: ", len(response.content.split("\n"))
+    except:
+        print code
 
 def get_stock_list(filepath):
 
@@ -27,5 +27,5 @@ def get_stock_list(filepath):
 if __name__ == "__main__":
 
     stocks = get_stock_list(STOCK_LIST)
-    for stock in stocks[62:]:
+    for stock in stocks:
         price_crawl(stock)

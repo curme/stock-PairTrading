@@ -58,8 +58,8 @@ def get_lineal_regression(stock1, stock2):
 
 if __name__ == "__main__":
 
-    #generate_correlation_report()
-
+    generate_correlation_report()
+'''
     with file("correlation_report.txt", "r") as f:
 
         stock1, stock2 = "", ""
@@ -77,4 +77,4 @@ if __name__ == "__main__":
         # calculate lineal regression equation
         # ln(PriceY_t) = Gamma*ln(PriceX_t) + Mu)
         gamma, mu = get_lineal_regression(stock1, stock2)
-        print gamma, mu
+        print gamma, mu'''
