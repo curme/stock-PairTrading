@@ -1,0 +1,22 @@
+[MarketData]
+DataSource_1 = SEHK
+ProductCode_1 = 00002
+ShowProduct_1 = True
+DataSource_2 = SEHK
+ProductCode_2 = 00012
+ShowProduct_2 = False
+BeginDate = 2015-01-01
+EndDate = 2015-03-31
+
+[Strategy]
+Gamma = 2.00185882636723
+Delta = 1.2
+Close = 0.1
+CutLoss = 2.56
+SmaDays = 5
+Sma = 2
+std = 0.0566018579779942
+mean = -4.49148296024685
+
+[Risk]
+InitialCapital = 1000000
